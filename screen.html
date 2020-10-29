@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <style>
+           #box-container{
+               border: 1px solid #BFBFBF;
+               display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              width:600px;
+              height:600px;
+
+           }
+           
+           #box-container>.small-box{
+           padding: 10px;
+           text-align: center;
+           color: white;
+           position: relative;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           font-weight: bold;
+           font-size: xxx-large;
+           }
+           .container{
+               display:flex;
+               background-color:#EFEFEF;
+           }
+           .btn-grp{
+               display: flex;
+               flex-direction: column;
+               margin:20px;
+               padding: 20px;
+           }
+           .btn{
+               background-color:#72C3DC ;
+               border-radius: 10px;
+               margin: 10px;
+               padding: 10px 20px;
+               color: white;
+           }
+           @media only screen and (max-width: 600px) {
+            .container{
+               display:flex;
+               flex-direction: column-reverse;
+           }
+            #box-container{
+
+               border: 1px solid #BFBFBF;
+               display: flex;
+               flex-direction:column;
+               width:auto;
+              height:auto;
+
+           }
+           #box-container>.small-box{
+           padding: 5px;
+           text-align: center;
+           position: relative;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           font-weight: bold;
+           font-size:medium;
+           }
+           .btn-grp{
+               display: flex;
+               flex-direction: row;
+               margin:5px;
+               padding: 5px;
+               align-items: center;
+               justify-content: center;
+           }
+          
+  
+}
+       </style>
+    </head>
+<body>
+    <div class="container">
+<div id="box-container">
+
+</div>
+<div class = "btn-grp">
+<button onclick="shuffule()" class = "btn">Shuffle</button>
+<button onclick="sort()" class = "btn">Sort</button>
+</div>
+</div>
+<script>
+    document.body.onload = display;
+    const colorArr = ["#6F98A8","#72C3DC","#2F454E","#72C3DC","#2F454E","#BFBFBF","#BFBFBF","#6F98A8","#2F454E"];
+    let arr = [1,2,3,4,5,6,7,8,9];
+    function display(){
+    arr.forEach((item,index) => {
+        addElement(item,index);
+    });
+    }
+    function shuffule (){
+        const randomNum = Math.floor(Math.random() * 8);
+        const arr1 = [...arr.slice(randomNum),...arr.slice(0,randomNum)];
+        document.getElementById("box-container").innerHTML = null;
+        arr1.forEach((item,index) => {
+        addElement(item,index);
+        arr = arr1;
+    });
+    }
+    function sort (){
+        document.getElementById("box-container").innerHTML = null;
+        const arr1 = arr.sort((a,b)=> a - b);
+        arr1.forEach((item,index) => {
+        addElement(item,index);
+        arr = arr1;
+    });
+    }
+
+    function addElement(val,index){
+    const newDiv = document.createElement("div"); 
+    const newContent = document.createTextNode(val);
+    newDiv.appendChild(newContent); 
+    newDiv.classList.add("small-box");
+    newDiv.style.backgroundColor = `${colorArr[index]}`;
+  const currentDiv = document.getElementById("box-container");
+  currentDiv.appendChild (newDiv);
+    }
+</script>
+</body>
+</html>
